@@ -119,7 +119,7 @@ body::before{content:"";position:fixed;inset:0;background:linear-gradient(rgba(2
     <h1>質數尋寶地圖</h1>
     <p class="sub">偵探星仔帶你搵晒 25 個質數，打開寶箱！</p>
   </div>
-  <img class="mascot r" id="mascotC" alt="合數 12">
+  <img class="mascot r" id="mascotC" alt="合成數 12">
 </header>
 
 <div class="game">
@@ -144,7 +144,7 @@ body::before{content:"";position:fixed;inset:0;background:linear-gradient(rgba(2
     <div class="card">
       <div class="legend" style="margin-bottom:12px">
         <span style="--k:var(--gold)">質數</span>
-        <span style="--k:var(--pur)">合數</span>
+        <span style="--k:var(--pur)">合成數</span>
         <span style="--k:var(--pink)">1：兩樣都唔係</span>
       </div>
       <div class="btns">
@@ -157,8 +157,8 @@ body::before{content:"";position:fixed;inset:0;background:linear-gradient(rgba(2
     <div class="card">
       <ol class="how">
         <li>同學講：「37 係質數，因為點排都只係排到一行。」</li>
-        <li>老師撳 37 揭開：黃色係質數，紫色係合數。</li>
-        <li>揭到合數唔緊要，睇吓佢點樣排成長方形。</li>
+        <li>老師撳 37 揭開：黃色係質數，紫色係合成數。</li>
+        <li>揭到合成數唔緊要，睇吓佢點樣排成長方形。</li>
         <li>目標：全班一齊搵晒 25 個質數！</li>
       </ol>
     </div>
@@ -208,7 +208,7 @@ const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(opened))}catch(e){}}
 function render(){
   const set=new Set(opened);
   board.querySelectorAll('.cell').forEach(c=>{const n=+c.dataset.n;c.className='cell'+(set.has(n)?' '+kind(n):'');
-    c.setAttribute('aria-label',set.has(n)?`${n}，${n===1?'兩樣都唔係':isPrime(n)?'質數':'合數'}`:`${n}，未揭開`)});
+    c.setAttribute('aria-label',set.has(n)?`${n}，${n===1?'兩樣都唔係':isPrime(n)?'質數':'合成數'}`:`${n}，未揭開`)});
   const f=opened.filter(isPrime).length;$('chest').src=f===25?IMG.chest_open:IMG.chest_closed;
   $('found').textContent=f;
   stars.querySelectorAll('i').forEach((s,i)=>s.classList.toggle('on',i<f));
@@ -222,10 +222,10 @@ function dots(rows,cols){
 function explain(n){
   const k=kind(n);
   $('resImg').src=IMG.detective;
-  if(k==='one'){$('resTitle').textContent='1：兩樣都唔係';$('resText').textContent='1 只有一個因數，所以佢既唔係質數，亦唔係合數。';$('resDots').innerHTML='';return}
+  if(k==='one'){$('resTitle').textContent='1：兩樣都唔係';$('resText').textContent='1 只有一個因數，所以佢既唔係質數，亦唔係合成數。';$('resDots').innerHTML='';return}
   if(k==='p'){$('resTitle').textContent=`${n} 係質數！`;$('resText').textContent=`${n} 粒圓點點排都只可以排成一行，冇其他排法。`;dots(1,n);return}
   let a=2;while(n%a)a++;const b=n/a;
-  $('resTitle').textContent=`${n} 係合數`;
+  $('resTitle').textContent=`${n} 係合成數`;
   $('resText').textContent=`${n} = ${a} × ${b}，可以排成 ${a} 行，每行 ${b} 粒。`;
   dots(a,b);
 }
